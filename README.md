@@ -2,8 +2,8 @@
 ## Project 00
 ### NeXTCS
 ### Period: 
-## Name0: YOUR NAME HERE
-## Name1: OTHER NAME HERE (delete this line if you are working solo)
+## Name0: Princeden Hom
+## Name1: Xuan Yao
 ---
 
 This project will be completed in phases. The first phase will be to work on this document. Use github-flavoured markdown. (For more markdown help [click here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or [here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) )
@@ -31,54 +31,55 @@ All projects will require the following:
 ### Forumla
 What is the formula for your force? Including descriptions/definitions for the symbols. (You may include a picture of the formula if it is not easily typed.)
 
-YOUR ANSWER HERE
+
+$$\vec{F} = -y\vec{i} + x\vec{j} $$
+
 
 ### Custom Force
 - What information that is already present in the `Orb` or `OrbNode` classes does this force use?
-  - YOUR ANSWER HERE
+  - the position of the orb
 
 - Does this force require any new constants, if so what are they and what values will you try initially?
-  - YOUR ANSWER HERE
+  - the coefficients of the vector field equation, and we will initially just use -y and x
 
 - Does this force require any new information to be added to the `Orb` class? If so, what is it and what data type will you use?
-  - YOUR ANSWER HERE
+  - no
 
 - Does this force interact with other `Orbs`, or is it applied based on the environment?
-  - YOUR ANSWER HERE
+  - environment
 
 - In order to calculate this force, do you need to perform extra intermediary calculations? If so, what?
-  - YOUR ANSWER HERE
+  - plug in the position into the equation for vector field force
 
 --- 
 
 ### Simulation 1: Gravity
-Describe how you will attempt to simulate orbital motion.
+Describe how you will attempt to simulate orbital motion. <br>
+One large dense object in the center of the screen and then two orbs that we will calculate the gravitational force of the large orb on the two orbs.
 
 --- 
 
 ### Simulation 2: Spring
-Describe what your spring simulation will look like. Explain how it will be setup, and how it should behave while running.
-
-YOUR ANSWER HERE
+Describe what your spring simulation will look like. Explain how it will be setup, and how it should behave while running. <br>
+Three orbs in the middle with springs attached between each orb and the leftmost fixed. The non fixed balls should oscillate left and right. force
 
 --- 
 
 ### Simulation 3: Drag
-Describe what your drag simulation will look like. Explain how it will be setup, and how it should behave while running.
-
-YOUR ANSWER HERE
+Describe what your drag simulation will look like. Explain how it will be setup, and how it should behave while running. <br>
+Start five balls on the top of the screen and apply a constant downward force. The bottom third of the screen will have very high drag force, and the middle third will have a weak drag force. While running, the balls should slow down as they move down the screen, but more so near the bottom than the middle 
 
 --- 
 
 ### Simulation 4: Custom force
-Describe what your Custom force simulation will look like. Explain how it will be setup, and how it should behave while running.
-
-YOUR ANSWER HERE
+Describe what your Custom force simulation will look like. Explain how it will be setup, and how it should behave while running. <br>
+5 balls will be scattered across the screen and while running they should follow the field lines.
 
 --- 
 
 ### Simulation 5: Combination
 Describe what your combination simulation will look like. Explain how it will be setup, and how it should behave while running.
+5 balls will be scattered across the screen and while running they should follow the field lines. The right half of the screen will experience a drag force, and there also will be a fixed orb in the center that will cause gravitational attraction to the other orbs. 
 
-YOUR ANSWER HERE
+
 
