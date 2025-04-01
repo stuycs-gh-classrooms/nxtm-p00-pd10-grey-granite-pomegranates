@@ -122,7 +122,9 @@ class Orb {
     color c1 = color(0);
     c = lerpColor(c0, c1, (mass-MIN_SIZE)/(MAX_MASS-MIN_SIZE));
   }//setColor
-
+  PVector getField() {
+    return new PVector(-0.1 * center.y, 0.1 *  center.x);
+  }
   //visual behavior
   void display() {
     noStroke();

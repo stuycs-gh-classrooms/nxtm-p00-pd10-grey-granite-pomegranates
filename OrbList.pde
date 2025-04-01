@@ -71,9 +71,9 @@ class OrbList {
     for (int i = 0; i < n; i++) {
       if (ordered) {
         if (i == 0) {
-          addFront(new OrbNode(0, width / 2, 30, 30));
+          addFront(new OrbNode(30, width / 2, 30, 30, true));
         } else {
-          addFront(new OrbNode(front.center.x + SPRING_LENGTH, width / 2, 30, 30));
+          addFront(new OrbNode(front.center.x + SPRING_LENGTH + 10, width / 2, 30, 30));
         }
       } else {
         addFront(new OrbNode());

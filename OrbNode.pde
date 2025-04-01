@@ -2,14 +2,25 @@ class OrbNode extends Orb {
 
   OrbNode next;
   OrbNode previous;
-
+  boolean fixed;
   OrbNode() {
     next = previous = null;
   }//default constructor
   OrbNode(float x, float y, float s, float m) {
     super(x, y, s, m);
     next = previous = null;
+    fixed = false;
   }//constructor
+    OrbNode(float x, float y, float s, float m, boolean b) {
+    super(x, y, s, m);
+    next = previous = null;
+    fixed = b;
+  }//constructor
+  void move(boolean bounce) {
+    if (!fixed) {
+      super.move(bounce);
+    }
+  } 
 
   void display() {
     super.display();
