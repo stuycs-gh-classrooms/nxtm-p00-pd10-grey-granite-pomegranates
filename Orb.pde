@@ -7,8 +7,7 @@ class Orb {
   float bsize;
   float mass;
   color c;
-
-
+  ArrayList<PVector> previous = new ArrayList<PVector>();
   Orb() {
      bsize = random(10, MAX_SIZE);
      float x = random(bsize/2, width-bsize/2);
@@ -35,10 +34,11 @@ class Orb {
       xBounce();
       yBounce();
     }
-
+    previous.add(center.copy());
     velocity.add(acceleration);
     center.add(velocity);
     acceleration.mult(0);
+    
   }//move
 
   void applyForce(PVector force) {
@@ -123,7 +123,13 @@ class Orb {
     c = lerpColor(c0, c1, (mass-MIN_SIZE)/(MAX_MASS-MIN_SIZE));
   }//setColor
   PVector getField() {
-    return new PVector(-0.1 * center.y, 0.1 *  center.x);
+    return new PVector(  -5 * ((height / 2) - center.y) ,    -5 * (center.x - width / 2) ).normalize();
+  }
+  void drawLine() {
+    stroke(c);
+    for (int i = 1; i < previous.size(); i++) {
+      line(previous.get(i-1).x, previous.get(i-1).y, previous.get(i).x, previous.get(i).y);
+    }
   }
   //visual behavior
   void display() {

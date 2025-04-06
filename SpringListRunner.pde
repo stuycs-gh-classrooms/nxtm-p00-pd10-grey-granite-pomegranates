@@ -54,7 +54,7 @@ void setup() {
 
 
   dragOrbs = new Orb[3];
-  fieldOrbs = new Orb[5];
+  fieldOrbs = new Orb[500];
   earth = new FixedOrb(width/2, height / 2, 100, 500);
 }//setup
 
@@ -62,6 +62,10 @@ void setup() {
 void draw() {
   background(255);
   displayMode();
+  //print('y');
+  //println(  (height / 2) - mouseY);
+  //print('x');
+  //println(  mouseX - width / 2);
 
   if (toggles[SPRINGS]) {
     slinky.display();
@@ -99,21 +103,41 @@ void draw() {
           PVector drag = dragOrbs[i].getDragForce(100);
           dragOrbs[i].applyForce(drag);
         }
+        dragOrbs[i].move(toggles[BOUNCE]);
       }
-      dragOrbs[i].move(toggles[BOUNCE]);
+
       dragOrbs[i].display();
     }
   } else if (toggles[VECTOR_FIELD]) {
-     for (int i = 0; i < fieldOrbs.length; i++) {
-       if (toggles[MOVING]) {
-         PVector f = fieldOrbs[i].getField();  
-         fieldOrbs[i].applyForce(f);
-       }
-       fieldOrbs[i].move(toggles[BOUNCE]);
-       fieldOrbs[i].display();
-       println(fieldOrbs[i].center);
-     }
+    for (int i = 0; i < fieldOrbs.length; i++) {
+      if (toggles[MOVING]) {
+        PVector f = fieldOrbs[i].getField();
+        //println("Orb Pos: ");
+        //print(fieldOrbs[i].center);
+        //println(f);
+
+        fieldOrbs[i].applyForce(f);
+
+        fieldOrbs[i].move(toggles[BOUNCE]);
+        fieldOrbs[i].drawLine();
+      }
+
+      fieldOrbs[i].display();
+    }
+    Boolean out = true;
+    for (int i = 0; i < fieldOrbs.length; i++) {
+      if (fieldOrbs[i].center.x > 0 && fieldOrbs[i].center.x < width && fieldOrbs[i].center.y < height && fieldOrbs[i].center.y > 0) {
+        out = false;
+      }
+      
+    }
+    if (out) {
+      for (int i = 0; i < fieldOrbs.length; i++) {
+        fieldOrbs[i] = new Orb();
+      }
+    }
   } else if (toggles[MULTIPLE]) {
+    
   } else if (toggles[SPRINGS]) {
   }
   if (toggles[MOVING]) {
@@ -134,9 +158,14 @@ void keyPressed() {
   }
   if (key == 'b') {
     toggles[BOUNCE] = !toggles[BOUNCE];
+
   }
   if (key == '1') {
     toggles[GRAVITY] = !toggles[GRAVITY];
+    toggles[SPRINGS] = false;
+    toggles[DRAGF] = false;
+    toggles[VECTOR_FIELD] = false;
+    toggles[MULTIPLE] = false;
     earth = new FixedOrb(width/2, height / 2, 100, 500);
     planets = new Orb[2];
     planets[0] = new Orb(100, 100, 50, 100);
@@ -144,23 +173,40 @@ void keyPressed() {
   }
   if (key == '2') {
     toggles[SPRINGS] = !toggles[SPRINGS];
+        toggles[GRAVITY] = false;
+    toggles[DRAGF] = false;
+    toggles[VECTOR_FIELD] = false;
+    toggles[MULTIPLE] = false;
     slinky = new OrbList();
     slinky.populate(NUM_ORBS, true);
   }
   if (key == '3') {
     toggles[DRAGF] = !toggles[DRAGF];
+        toggles[GRAVITY] = false;
+    toggles[SPRINGS] = false;
+    toggles[VECTOR_FIELD] = false;
+    toggles[MULTIPLE] = false;
     dragOrbs = new Orb[3];
     for (int i = 0; i < dragOrbs.length; i++) {
       dragOrbs[i] = new Orb(100 + i * 150, 100, 50, 100);
     }
   }
   if (key == '4') {
+        toggles[GRAVITY] = false;
+    toggles[SPRINGS] = false;
+    toggles[DRAGF] = false;
+    toggles[MULTIPLE] = false;
     toggles[VECTOR_FIELD] = !toggles[VECTOR_FIELD];
     for (int i = 0; i < fieldOrbs.length; i++) {
       fieldOrbs[i] = new Orb();
     }
   }
   if (key == '5') {
+        toggles[GRAVITY] = false;
+    toggles[SPRINGS] = false;
+    toggles[DRAGF] = false;
+    toggles[VECTOR_FIELD] = false;
+    toggles[MULTIPLE] = !toggles[MULTIPLE];
   }
 }//keyPressed
 
