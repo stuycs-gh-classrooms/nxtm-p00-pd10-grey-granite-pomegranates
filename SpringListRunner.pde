@@ -55,6 +55,7 @@ void setup() {
 
   dragOrbs = new Orb[3];
   fieldOrbs = new Orb[500];
+  comboOrbs = new Orb[200];
   earth = new FixedOrb(width/2, height / 2, 100, 500);
 }//setup
 
@@ -125,11 +126,10 @@ void draw() {
       fieldOrbs[i].display();
     }
     Boolean out = true;
-    for (int i = 0; i < fieldOrbs.length; i++) {
+    for (int i = 0; i < comboOrbs.length; i++) {
       if (fieldOrbs[i].center.x > 0 && fieldOrbs[i].center.x < width && fieldOrbs[i].center.y < height && fieldOrbs[i].center.y > 0) {
         out = false;
       }
-      
     }
     if (out) {
       for (int i = 0; i < fieldOrbs.length; i++) {
@@ -137,17 +137,50 @@ void draw() {
       }
     }
   } else if (toggles[MULTIPLE]) {
-    
-  } else if (toggles[SPRINGS]) {
-  }
-  if (toggles[MOVING]) {
-
-
-    if (toggles[GRAVITY]) {
-      //slinky.applyGravity(earth, GRAVITY);
+    fill(0, 255, 0);
+    circle(width / 2, height /2, 500);
+    fill(255,105,180);
+    circle(width / 2, height / 2, 300);
+    for (int i = 0; i < comboOrbs.length; i++) {
+      if (toggles[MOVING]) {
+        PVector f = comboOrbs[i].getField();
+        //println("Orb Pos: ");
+        //print(fieldOrbs[i].center);
+        //println(f);
+        float r = dist(width /2, height / 2, comboOrbs[i].center.x, comboOrbs[i].center.y);
+        
+        comboOrbs[i].applyForce(f);
+        PVector g = comboOrbs[i].getGravity(earth, G_CONSTANT);
+        comboOrbs[i].applyForce(g);
+        PVector d;
+        if (r <= 300) {
+          d = comboOrbs[i].getDragForce(0);
+        }
+        else if (r <= 500) {
+        d = comboOrbs[i].getDragForce(0.5);
+        }
+        else {
+          d = comboOrbs[i].getDragForce(1);
+        }
+        comboOrbs[i].applyForce(d);
+        comboOrbs[i].move(toggles[BOUNCE]);
+        comboOrbs[i].drawLine();
+      }
+      earth.display();
+      comboOrbs[i].display();
     }
-    //slinky.run(toggles[BOUNCE]);
-  }//moving
+    Boolean out = true;
+    for (int i = 0; i < comboOrbs.length; i++) {
+      if (comboOrbs[i].center.x > 0 && comboOrbs[i].center.x < width && comboOrbs[i].center.y < height && comboOrbs[i].center.y > 0) {
+        out = false;
+      }
+    }
+    if (out) {
+      for (int i = 0; i < comboOrbs.length; i++) {
+        comboOrbs[i] = new Orb();
+      }
+    }
+  }
 }//draw
 
 
@@ -158,7 +191,6 @@ void keyPressed() {
   }
   if (key == 'b') {
     toggles[BOUNCE] = !toggles[BOUNCE];
-
   }
   if (key == '1') {
     toggles[GRAVITY] = !toggles[GRAVITY];
@@ -173,7 +205,7 @@ void keyPressed() {
   }
   if (key == '2') {
     toggles[SPRINGS] = !toggles[SPRINGS];
-        toggles[GRAVITY] = false;
+    toggles[GRAVITY] = false;
     toggles[DRAGF] = false;
     toggles[VECTOR_FIELD] = false;
     toggles[MULTIPLE] = false;
@@ -182,7 +214,7 @@ void keyPressed() {
   }
   if (key == '3') {
     toggles[DRAGF] = !toggles[DRAGF];
-        toggles[GRAVITY] = false;
+    toggles[GRAVITY] = false;
     toggles[SPRINGS] = false;
     toggles[VECTOR_FIELD] = false;
     toggles[MULTIPLE] = false;
@@ -192,7 +224,7 @@ void keyPressed() {
     }
   }
   if (key == '4') {
-        toggles[GRAVITY] = false;
+    toggles[GRAVITY] = false;
     toggles[SPRINGS] = false;
     toggles[DRAGF] = false;
     toggles[MULTIPLE] = false;
@@ -202,11 +234,15 @@ void keyPressed() {
     }
   }
   if (key == '5') {
-        toggles[GRAVITY] = false;
+    toggles[GRAVITY] = false;
     toggles[SPRINGS] = false;
     toggles[DRAGF] = false;
     toggles[VECTOR_FIELD] = false;
+    earth = new FixedOrb(width/2, height / 2, 100, 500);
     toggles[MULTIPLE] = !toggles[MULTIPLE];
+    for (int i = 0; i < comboOrbs.length; i++) {
+      comboOrbs[i] = new Orb();
+    }
   }
 }//keyPressed
 
